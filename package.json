@@ -1,0 +1,39 @@
+{
+  "name": "position_api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "start": "set NODE_ENV=production && node server",
+    "dev": "nodemon server"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vinivst/PositionAPI.git"
+  },
+  "author": "Vinicius Santiago",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/vinivst/PositionAPI/issues"
+  },
+  "homepage": "https://github.com/vinivst/PositionAPI#readme",
+  "devDependencies": {
+    "nodemon": "^2.0.2"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "colors": "^1.4.0",
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "express-mongo-sanitize": "^1.3.2",
+    "express-rate-limit": "^5.0.0",
+    "helmet": "^3.21.2",
+    "hpp": "^0.2.3",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.8.9",
+    "morgan": "^1.9.1",
+    "slugify": "^1.3.6",
+    "xss-clean": "^0.1.1"
+  }
+}
