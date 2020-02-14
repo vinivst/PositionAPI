@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-const slugify = require('slugify');
 
 const SymbolSchema = new mongoose.Schema(
   {

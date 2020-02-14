@@ -20,6 +20,7 @@ connectDB();
 
 // Route files
 const symbols = require('./routes/symbols');
+const recomendations = require('./routes/recomendations');
 
 const app = express();
 
@@ -60,6 +61,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 // Mount routes
 
 app.use('/api/v1/symbols', symbols);
+app.use('/api/v1/recomendations', recomendations);
 
 // Handle erros
 app.use(errorHandler);
