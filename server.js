@@ -21,6 +21,8 @@ connectDB();
 // Route files
 const symbols = require('./routes/symbols');
 const recomendations = require('./routes/recomendations');
+const buys = require('./routes/buys');
+const history = require('./routes/history');
 
 const app = express();
 
@@ -62,6 +64,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/api/v1/symbols', symbols);
 app.use('/api/v1/recomendations', recomendations);
+app.use('/api/v1/buys', buys);
+app.use('/api/v1/history', history);
 
 // Handle erros
 app.use(errorHandler);
