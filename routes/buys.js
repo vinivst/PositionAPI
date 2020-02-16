@@ -16,15 +16,12 @@ const { protect, authorize } = require('../middleware/auth');
 
 router
   .route('/')
-  .get(advancedResults(Buy), getBuys)
-  .post(addBuy);
-//.post(protect, authorize('publisher', 'admin'), createBootcamp);
+  .get(protect, authorize('admin'), advancedResults(Buy), getBuys)
+  .post(protect, authorize('admin'), addBuy);
 
 router
   .route('/:symbol')
-  //.get(getBootcamp)
-  //.put(protect, authorize('publisher', 'admin'), updateBootcamp)
-  .put(updateBuy)
-  .delete(deleteBuy);
+  .put(protect, authorize('admin'), updateBuy)
+  .delete(protect, authorize('admin'), deleteBuy);
 
 module.exports = router;

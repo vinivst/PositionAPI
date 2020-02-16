@@ -15,14 +15,16 @@ const { protect, authorize } = require('../middleware/auth');
 
 router
   .route('/')
-  .get(advancedResults(Recomendation), getRecomendations)
-  .post(addRecomendation);
-//.post(protect, authorize('publisher', 'admin'), createBootcamp);
+  .get(
+    protect,
+    authorize('admin'),
+    advancedResults(Recomendation),
+    getRecomendations
+  )
+  .post(protect, authorize('admin'), addRecomendation);
 
 router
   .route('/:symbol')
-  //.get(getBootcamp)
-  //.put(protect, authorize('publisher', 'admin'), updateBootcamp)
-  .delete(deleteRecomendation);
+  .delete(protect, authorize('admin'), deleteRecomendation);
 
 module.exports = router;

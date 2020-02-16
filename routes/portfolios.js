@@ -15,13 +15,14 @@ const { protect, authorize } = require('../middleware/auth');
 
 router
   .route('/')
-  .get(advancedResults(Portfolio, 'buys'), getPortfolios)
-  .post(addPortfolio);
-//.post(protect, authorize('publisher', 'admin'), createBootcamp);
+  .get(
+    protect,
+    authorize('admin'),
+    advancedResults(Portfolio, 'buys'),
+    getPortfolios
+  )
+  .post(protect, authorize('admin'), addPortfolio);
 
-router.route('/:id').get(getPortfolio);
-//   .put(protect, authorize('publisher', 'admin'), updateBootcamp)
-//   .put(updateBuy)
-//   .delete(deleteBuy);
+router.route('/:id').get(protect, authorize('admin'), getPortfolio);
 
 module.exports = router;

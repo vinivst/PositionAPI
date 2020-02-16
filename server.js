@@ -24,6 +24,7 @@ const recomendations = require('./routes/recomendations');
 const buys = require('./routes/buys');
 const history = require('./routes/history');
 const portfolios = require('./routes/portfolios');
+const auth = require('./routes/auth');
 
 const app = express();
 
@@ -68,6 +69,7 @@ app.use('/api/v1/recomendations', recomendations);
 app.use('/api/v1/buys', buys);
 app.use('/api/v1/history', history);
 app.use('/api/v1/portfolios', portfolios);
+app.use('/api/v1/auth', auth);
 
 // Handle erros
 app.use(errorHandler);
