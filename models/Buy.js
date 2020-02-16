@@ -19,6 +19,11 @@ const BuySchema = new mongoose.Schema(
       required: [true, 'Please, add a stop loss'],
       maxlength: [10, 'Stop Loss can not be more than 10 characters']
     },
+    portfolio: {
+      type: mongoose.Schema.ObjectId,
+      ref: 'Portfolio',
+      required: true
+    },
     createdAt: {
       type: Date,
       default: Date.now
@@ -38,7 +43,7 @@ BuySchema.pre('save', async function(next) {
   next();
 });
 
-//Cascade add history when a buy is deleted
+//Cascade add history and update portfolio variation when a buy is deleted
 BuySchema.pre('remove', async function(next) {
   await this.model('History').create({
     symbol: this.symbol,
@@ -48,6 +53,12 @@ BuySchema.pre('remove', async function(next) {
       ((this.stopLoss / this.buyPrice - 1) * 100).toFixed(2)
     )
   });
+
+  //update portfolio variation
+  await this.model('Portfolio').findByIdAndUpdate(this.portfolio, {
+    $mul: { variation: this.stopLoss / this.buyPrice }
+  });
+
   next();
 });
 

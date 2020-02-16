@@ -23,6 +23,7 @@ const symbols = require('./routes/symbols');
 const recomendations = require('./routes/recomendations');
 const buys = require('./routes/buys');
 const history = require('./routes/history');
+const portfolios = require('./routes/portfolios');
 
 const app = express();
 
@@ -66,6 +67,7 @@ app.use('/api/v1/symbols', symbols);
 app.use('/api/v1/recomendations', recomendations);
 app.use('/api/v1/buys', buys);
 app.use('/api/v1/history', history);
+app.use('/api/v1/portfolios', portfolios);
 
 // Handle erros
 app.use(errorHandler);

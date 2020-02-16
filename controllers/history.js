@@ -9,22 +9,3 @@ const History = require('../models/History');
 exports.getHistory = asyncHandler(async (req, res, next) => {
   res.status(200).json(res.advancedResults);
 });
-
-// @desc        Get Variation
-// @route       GET /api/v1/history/variation
-// @access      Private
-exports.getVariation = asyncHandler(async (req, res, next) => {
-  let variation = 1;
-  const history = await History.find();
-
-  history.forEach(element => {
-    variation = parseFloat(
-      (variation * (element.variation / 100 + 1)).toFixed(4)
-    );
-  });
-
-  res.status(200).json({
-    success: true,
-    data: variation
-  });
-});
