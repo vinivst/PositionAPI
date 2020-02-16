@@ -1,5 +1,5 @@
 const express = require('express');
-const { getHistory } = require('../controllers/history');
+const { getHistory, getVariation } = require('../controllers/history');
 
 const History = require('../models/History');
 
@@ -12,6 +12,8 @@ const { protect, authorize } = require('../middleware/auth');
 router.route('/').get(advancedResults(History), getHistory);
 //   .post(addBuy);
 //.post(protect, authorize('publisher', 'admin'), createBootcamp);
+
+router.route('/variation').get(getVariation);
 
 /* router
   .route('/:symbol')
