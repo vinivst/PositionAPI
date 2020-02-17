@@ -1,0 +1,461 @@
+{
+	"info": {
+		"_postman_id": "93579621-bb57-42b9-be46-89ff714f8e3e",
+		"name": "Position",
+		"description": "Backend API for the Position Bot application to manage symbols, requisitions and authentication",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Symbols",
+			"item": [
+				{
+					"name": "Get all Symbols",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/api/v1/symbols",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"symbols"
+							]
+						},
+						"description": "Fetch all symbols from database. Includes pagination, filtering, etc"
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Recomendations",
+			"item": [
+				{
+					"name": "Add Recomendation",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": "JSON Type",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"symbol\": \"ABEV3\",\n\t\"buyTrigger\": 20.33,\n\t\"stopLoss\": \"14.03\"\n}"
+						},
+						"url": {
+							"raw": "{{URL}}/api/v1/recomendations",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"recomendations"
+							]
+						},
+						"description": "Add new Recomendation to database. Must be authenticated."
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Recomendations",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{URL}}/api/v1/recomendations",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"recomendations"
+							]
+						},
+						"description": "Fetch all recomendations from database. Includes pagination, filtering, etc"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Recomendation",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{URL}}/api/v1/recomendations/ABEV3",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"recomendations",
+								"ABEV3"
+							]
+						},
+						"description": "Delete Recomendation from database"
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Buys",
+			"item": [
+				{
+					"name": "Get All Buys",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{URL}}/api/v1/buys",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"buys"
+							]
+						},
+						"description": "Fetch all buys from database. Includes pagination, filtering, etc"
+					},
+					"response": []
+				},
+				{
+					"name": "Add Buy",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": "JSON Type",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"symbol\": \"ABEV3\",\n\t\"buyPrice\": 30,\n\t\"stopLoss\": 40,\n\t\"portfolio\": \"5e495381d94f602e98e54667\"\n}"
+						},
+						"url": {
+							"raw": "{{URL}}/api/v1/buys",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"buys"
+							]
+						},
+						"description": "Add new buy to database. Must be authenticated."
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Buy",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{URL}}/api/v1/buys/ABEV3",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"buys",
+								"ABEV3"
+							]
+						},
+						"description": "Delete buy from database"
+					},
+					"response": []
+				},
+				{
+					"name": "Update Buy",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": "JSON Type",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"stopLoss\": 14.50\n}"
+						},
+						"url": {
+							"raw": "{{URL}}/api/v1/buys/ABEV3",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"buys",
+								"ABEV3"
+							]
+						},
+						"description": "Update single buy in database"
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "History",
+			"item": [
+				{
+					"name": "Get All History",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/api/v1/history",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"history"
+							]
+						},
+						"description": "Fetch all History operations from database"
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Portfolios",
+			"item": [
+				{
+					"name": "Add Portfolio",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": "JSON Type",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\": \"2020\"\n}"
+						},
+						"url": {
+							"raw": "{{URL}}/api/v1/portfolios",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"portfolios"
+							]
+						},
+						"description": "Add new Portfolio to database"
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Portfolios",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/api/v1/portfolios",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"portfolios"
+							]
+						},
+						"description": "Get All Portfolios from database"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Specific Portfolio",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/api/v1/portfolios/5e495381d94f602e98e54667",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"portfolios",
+								"5e495381d94f602e98e54667"
+							]
+						},
+						"description": "Get Specific Portfolio from database"
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Authentication",
+			"item": [
+				{
+					"name": "Login User",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "64c76b12-1c2b-4e65-b7ef-457559d9e662",
+								"exec": [
+									"pm.environment.set(\"TOKEN\", pm.response.json().token)"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": "JSON Type",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"email\": \"positionbot@investrobos.com\",\n\t\"password\": \"positi0n!@#\"\n}"
+						},
+						"url": {
+							"raw": "{{URL}}/api/v1/auth/login",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"auth",
+								"login"
+							]
+						},
+						"description": "Logs in a user"
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		}
+	],
+	"protocolProfileBehavior": {}
+}
