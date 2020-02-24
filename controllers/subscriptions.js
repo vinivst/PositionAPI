@@ -8,5 +8,5 @@ const asyncHandler = require('../middleware/async');
 // @access      Private
 exports.addSubscription = asyncHandler(async (req, res, next) => {
   console.log(req);
-  res.status(200).json(req);
+  res.status(200);
 });
