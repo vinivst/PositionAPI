@@ -24,17 +24,81 @@ exports.addSubscription = asyncHandler(async (req, res, next) => {
     .digest('base64');
 
   if (hash === signature) {
-    console.log(req.body);
+    if (req.body.status == 'pending') {
+      const subscription = await Subscription.create({
+        phone: req.body.billing.phone,
+        status: req.body.status,
+        first_name: req.body.billing.first_name,
+        last_name: req.body.billing.last_name,
+        email: req.body.billing.email
+      });
 
-    /*const subscription = await Subscription.findOneAndUpdate({
-        phone: req.root.billing.phone
-    });*/
+      res.status(200).json({
+        match: true,
+        data: subscription
+      });
+    } else if (req.body.status == 'active') {
+      const subscription = await Subscription.findOneAndUpdate(
+        {
+          phone: req.body.billing.phone
+        },
+        { status: req.body.status },
+        {
+          new: true
+        }
+      );
 
-    res.status(200).json({
-      match: true
-    });
+      //Faz chamada a API do Telegram para adicionar número no canal
+
+      res.status(200).json({
+        match: true,
+        data: subscription
+      });
+    } else if (req.body.status == 'pending-cancel') {
+      const subscription = await Subscription.findOneAndUpdate(
+        {
+          phone: req.body.billing.phone
+        },
+        { status: req.body.status },
+        {
+          new: true
+        }
+      );
+
+      res.status(200).json({
+        match: true,
+        data: subscription
+      });
+    } else if (req.body.status == 'on-hold') {
+      const subscription = await Subscription.findOneAndUpdate(
+        {
+          phone: req.body.billing.phone
+        },
+        { status: req.body.status },
+        {
+          new: true
+        }
+      );
+
+      //Faz chamada a API do Telegram para remover número no canal
+
+      res.status(200).json({
+        match: true,
+        data: subscription
+      });
+    } else if (req.body.status == 'cancelled') {
+      const subscription = await Subscription.findOneAndDelete({
+        phone: req.body.billing.phone
+      });
+
+      //Faz chamada a API do Telegram para remover número no canal
+
+      res.status(200).json({
+        match: true,
+        data: subscription
+      });
+    }
   } else {
-    console.log('math: false');
     res.status(401).json({
       match: false
     });
