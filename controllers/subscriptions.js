@@ -24,7 +24,7 @@ exports.addSubscription = asyncHandler(async (req, res, next) => {
     .digest('base64');
 
   if (hash === signature) {
-    console.log(req.root);
+    console.log(req.body);
 
     /*const subscription = await Subscription.findOneAndUpdate({
         phone: req.root.billing.phone
