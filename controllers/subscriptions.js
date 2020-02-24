@@ -1,12 +1,30 @@
 const path = require('path');
 const ErrorResponse = require('../utils/errorResponse');
 const asyncHandler = require('../middleware/async');
-//const Buy = require('../models/Buy');
+const crypto = require('crypto');
+const Subscription = require('../models/Subscription');
 
-// @desc        Add new subscription
+// @desc        Update Subscription Status
 // @route       POST /api/v1/subscriptions
 // @access      Private
 exports.addSubscription = asyncHandler(async (req, res, next) => {
-  console.log(req);
-  res.status(200);
+  const secret = process.env.JWT_SECRET;
+  const signature = req.header('X-WC-Webhook-Signature');
+
+  const hash = crypto
+    .createHmac('SHA256', secret)
+    .update(new Buffer(JSON.stringify(req.body), 'utf8'))
+    .digest('base64');
+
+  if (hash === signature) {
+    console.log('math: true');
+    res.status(200).json({
+      match: true
+    });
+  } else {
+    console.log('math: false');
+    res.status(401).json({
+      match: false
+    });
+  }
 });
