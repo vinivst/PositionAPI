@@ -13,7 +13,7 @@ exports.addSubscription = asyncHandler(async (req, res, next) => {
 
   const hash = crypto
     .createHmac('SHA256', secret)
-    .update(new Buffer(JSON.stringify(req.body), 'utf8'))
+    .update(req.rawBody)
     .digest('base64');
 
   if (hash === signature) {

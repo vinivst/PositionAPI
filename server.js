@@ -11,6 +11,7 @@ const hpp = require('hpp');
 const cors = require('cors');
 const errorHandler = require('./middleware/error');
 const connectDB = require('./config/db');
+const bodyParser = require('body-parser');
 
 //Load env vars
 dotenv.config({ path: './config/config.env' });
@@ -28,6 +29,16 @@ const auth = require('./routes/auth');
 const subscriptions = require('./routes/subscriptions');
 
 const app = express();
+
+//Handle rawBody from Woocommerce WebHooks
+const rawBodySaver = (req, res, buf, encoding) => {
+  if (buf && buf.length) {
+    req.rawBody = buf.toString(encoding || 'utf8');
+  }
+};
+app.use(bodyParser.json({ verify: rawBodySaver }));
+app.use(bodyParser.urlencoded({ verify: rawBodySaver, extended: true }));
+app.use(bodyParser.raw({ verify: rawBodySaver, type: '*/*' }));
 
 // Body parser
 app.use(express.json());
