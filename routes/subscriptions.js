@@ -1,7 +1,10 @@
 const express = require('express');
-const { addSubscription } = require('../controllers/subscriptions');
+const {
+  addSubscription,
+  getSubscriptions
+} = require('../controllers/subscriptions');
 
-//const Buy = require('../models/Buy');
+const Subscription = require('../models/Subscription');
 
 const router = express.Router();
 
@@ -11,7 +14,12 @@ const { protect, authorize } = require('../middleware/auth');
 
 router
   .route('/')
-  //.get(protect, authorize('admin'), advancedResults(Buy), getBuys)
+  .get(
+    protect,
+    authorize('admin'),
+    advancedResults(Subscription),
+    getSubscriptions
+  )
   .post(addSubscription);
 
 /* router
