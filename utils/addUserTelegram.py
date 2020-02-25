@@ -8,7 +8,7 @@ import os
 from os.path import join, dirname
 from dotenv import load_dotenv
 
-dotenv_path = join(dirname(__file__), './config/config.env')
+dotenv_path = join(dirname(__file__), '../config/config.env')
 load_dotenv(dotenv_path)
 
 # Remember to use your own values from my.telegram.org!
