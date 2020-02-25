@@ -74,7 +74,7 @@ exports.addSubscription = asyncHandler(async (req, res, next) => {
       PythonShell.run('addUserTelegram.py', options, function(err, results) {
         if (err) throw err;
         // results is an array consisting of messages collected during execution
-        console.log('results: %j', results);
+        //console.log('results: %j', results);
       });
 
       res.status(200).json({
@@ -122,7 +122,7 @@ exports.addSubscription = asyncHandler(async (req, res, next) => {
       PythonShell.run('banUserTelegram.py', options, function(err, results) {
         if (err) throw err;
         // results is an array consisting of messages collected during execution
-        console.log('results: %j', results);
+        //console.log('results: %j', results);
       });
 
       res.status(200).json({
@@ -149,7 +149,7 @@ exports.addSubscription = asyncHandler(async (req, res, next) => {
       PythonShell.run('banUserTelegram.py', options, function(err, results) {
         if (err) throw err;
         // results is an array consisting of messages collected during execution
-        console.log('results: %j', results);
+        //console.log('results: %j', results);
       });
 
       res.status(200).json({
