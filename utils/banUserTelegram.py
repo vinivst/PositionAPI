@@ -41,29 +41,30 @@ async def banUserFromChannel():
     channel = await client.get_entity(channel_link)
 
     # Ban a user from channel
-    banUser = await client(functions.channels.EditBannedRequest(
-        channel=channel,
-        user_id=result.users[0],
-        banned_rights=types.ChatBannedRights(
-            until_date=0,
-            view_messages=True,
-            send_messages=True,
-            send_media=True,
-            send_stickers=True,
-            send_gifs=True,
-            send_games=True,
-            send_inline=True,
-            send_polls=True,
-            change_info=True,
-            invite_users=True,
-            pin_messages=True
-        )
-    ))
+    if len(result.users) > 0:
+        banUser = await client(functions.channels.EditBannedRequest(
+            channel=channel,
+            user_id=result.users[0],
+            banned_rights=types.ChatBannedRights(
+                until_date=0,
+                view_messages=True,
+                send_messages=True,
+                send_media=True,
+                send_stickers=True,
+                send_gifs=True,
+                send_games=True,
+                send_inline=True,
+                send_polls=True,
+                change_info=True,
+                invite_users=True,
+                pin_messages=True
+            )
+        ))
 
-    # remove user from contacts
-    removeContact = await client(functions.contacts.DeleteContactsRequest(
-        id=[result.users[0]]
-    ))
+        # remove user from contacts
+        removeContact = await client(functions.contacts.DeleteContactsRequest(
+            id=[result.users[0]]
+        ))
 
 with client:
     client.loop.run_until_complete(banUserFromChannel())

@@ -41,10 +41,11 @@ async def addUserToChannel():
     channel = await client.get_entity(channel_link)
 
     # Add users to channel
-    addUser = await client(InviteToChannelRequest(
-        channel,
-        [result.users[0]]
-    ))
+    if len(result.users) > 0:
+        addUser = await client(InviteToChannelRequest(
+            channel,
+            [result.users[0]]
+        ))
 
 with client:
     client.loop.run_until_complete(addUserToChannel())
