@@ -14,7 +14,8 @@ load_dotenv(dotenv_path)
 # Remember to use your own values from my.telegram.org!
 api_id = os.environ.get("TELEGRAM_API_ID")
 api_hash = os.environ.get("TELEGRAM_API_HASH")
-client = TelegramClient('investRobos', api_id, api_hash)
+client = TelegramClient(
+    '/apps/PositionAPI/utils/investRobos.session', api_id, api_hash)
 phone_number = os.environ.get("TELEGRAM_PHONE_NUMBER")
 
 channel_id = os.environ.get("TELEGRAM_CHANNEL_ID")
@@ -25,7 +26,7 @@ guest_first_name = sys.argv[2]
 guest_last_name = sys.argv[3]
 
 
-async def addUserToChannel():
+async def banUserFromChannel():
     # add user to contact
     result = await client(functions.contacts.ImportContactsRequest(
         contacts=[types.InputPhoneContact(
@@ -39,11 +40,30 @@ async def addUserToChannel():
     # Find channel
     channel = await client.get_entity(channel_link)
 
-    # Add users to channel
-    addUser = await client(InviteToChannelRequest(
-        channel,
-        [result.users[0]]
+    # Ban a user from channel
+    banUser = await client(functions.channels.EditBannedRequest(
+        channel=channel,
+        user_id=result.users[0],
+        banned_rights=types.ChatBannedRights(
+            until_date=0,
+            view_messages=True,
+            send_messages=True,
+            send_media=True,
+            send_stickers=True,
+            send_gifs=True,
+            send_games=True,
+            send_inline=True,
+            send_polls=True,
+            change_info=True,
+            invite_users=True,
+            pin_messages=True
+        )
+    ))
+
+    # remove user from contacts
+    removeContact = await client(functions.contacts.DeleteContactsRequest(
+        id=[result.users[0]]
     ))
 
 with client:
-    client.loop.run_until_complete(addUserToChannel())
+    client.loop.run_until_complete(banUserFromChannel())
