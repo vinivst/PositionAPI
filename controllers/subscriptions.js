@@ -39,7 +39,7 @@ exports.addSubscription = asyncHandler(async (req, res, next) => {
         data: subscription
       });
     } else if (req.body.status == 'active') {
-      const subscription = await Subscription.findOneAndUpdate(
+      let subscription = await Subscription.findOneAndUpdate(
         {
           phone: req.body.billing.phone
         },
@@ -48,6 +48,16 @@ exports.addSubscription = asyncHandler(async (req, res, next) => {
           new: true
         }
       );
+
+      if (!subscription) {
+        subscription = await Subscription.create({
+          phone: req.body.billing.phone,
+          status: req.body.status,
+          first_name: req.body.billing.first_name,
+          last_name: req.body.billing.last_name,
+          email: req.body.billing.email
+        });
+      }
 
       //Faz chamada a API do Telegram para adicionar número no canal
       let options = {
