@@ -128,7 +128,7 @@ exports.addSubscription = asyncHandler(async (req, res, next) => {
       let options = {
         mode: 'text',
         pythonOptions: ['-u'], // get print results in real-time
-        scriptPath: '/apps/PositionAPI/controllers/',
+        scriptPath: '/apps/PositionAPI/utils/',
         args: [
           req.body.billing.phone,
           req.body.billing.first_name,
