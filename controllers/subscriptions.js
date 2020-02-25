@@ -3,6 +3,7 @@ const ErrorResponse = require('../utils/errorResponse');
 const asyncHandler = require('../middleware/async');
 const crypto = require('crypto');
 const Subscription = require('../models/Subscription');
+let { PythonShell } = require('python-shell');
 
 // @desc        Get all subscriptions
 // @route       GET /api/v1/subscriptions
@@ -49,6 +50,22 @@ exports.addSubscription = asyncHandler(async (req, res, next) => {
       );
 
       //Faz chamada a API do Telegram para adicionar número no canal
+      let options = {
+        mode: 'text',
+        pythonOptions: ['-u'], // get print results in real-time
+        scriptPath: '../utils/',
+        args: [
+          req.body.billing.phone,
+          req.body.billing.first_name,
+          req.body.billing.last_name
+        ]
+      };
+
+      PythonShell.run('addUserTelegram.py', options, function(err, results) {
+        if (err) throw err;
+        // results is an array consisting of messages collected during execution
+        console.log('results: %j', results);
+      });
 
       res.status(200).json({
         match: true,
@@ -81,6 +98,22 @@ exports.addSubscription = asyncHandler(async (req, res, next) => {
       );
 
       //Faz chamada a API do Telegram para remover número no canal
+      let options = {
+        mode: 'text',
+        pythonOptions: ['-u'], // get print results in real-time
+        scriptPath: '../utils/',
+        args: [
+          req.body.billing.phone,
+          req.body.billing.first_name,
+          req.body.billing.last_name
+        ]
+      };
+
+      PythonShell.run('banUserTelegram.py', options, function(err, results) {
+        if (err) throw err;
+        // results is an array consisting of messages collected during execution
+        console.log('results: %j', results);
+      });
 
       res.status(200).json({
         match: true,
@@ -92,6 +125,22 @@ exports.addSubscription = asyncHandler(async (req, res, next) => {
       });
 
       //Faz chamada a API do Telegram para remover número no canal
+      let options = {
+        mode: 'text',
+        pythonOptions: ['-u'], // get print results in real-time
+        scriptPath: '../utils/',
+        args: [
+          req.body.billing.phone,
+          req.body.billing.first_name,
+          req.body.billing.last_name
+        ]
+      };
+
+      PythonShell.run('banUserTelegram.py', options, function(err, results) {
+        if (err) throw err;
+        // results is an array consisting of messages collected during execution
+        console.log('results: %j', results);
+      });
 
       res.status(200).json({
         match: true,
